@@ -5,8 +5,14 @@ const faqSchema = new Schema({
     answer:{type: String, require: true},
     translations:
     {
-        hi:{type: String},
-        bn:{type: String},
+        hi:{
+            question:{type: String},
+            answer: {type: String}
+        },
+        bn:{
+            question:{type: String},
+            answer:{type: String}
+        },
     }
 });
 
