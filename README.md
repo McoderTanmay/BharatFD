@@ -42,8 +42,8 @@ REDIS_PORT=6379
 npm start
 ```
 ### 4. API Usage
-**POST**: To create FAQ /api/faqs/create
-**GET**: To get all FAQs /api/faqs/ (degfault english)
+- **POST**: To create FAQ /api/faqs/create
+- **GET**: To get all FAQs /api/faqs/ (degfault english)
 ```bash
 GET /api/faqs?lang=hi
 GET /api/faqs?lang=bn
