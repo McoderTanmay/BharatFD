@@ -10,7 +10,7 @@
   - **MongoDB**: NoSQL database for storing FAQ data
 - **Caching**:  
   - **Redis**: Caching mechanism to store frequently requested FAQs for quicker retrieval.
--**Admin panel**:
+- **Admin panel**:
   - **AdminJS**: Admin panel for managing FAQs
 ---
 
