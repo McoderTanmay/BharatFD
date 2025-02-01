@@ -10,7 +10,7 @@ redisClient.on("error", (error)=>{
 });
 
 (async () => {
-    await redisClient.connect(); // Ensure Redis connects before using it
+    await redisClient.connect();
     console.log("Connected to Redis");
 })();
 

@@ -44,7 +44,9 @@ const adminRouter = AdminJSExpress.buildRouter(adminJs);
 app.use(adminJs.options.rootPath, adminRouter);
 
 
-app.listen(3000, ()=>{
+const server = app.listen(3000, ()=>{
     console.log("server is running on http://localhost:3000");
     console.log(`Admin panel: http://localhost:3000/admin`);
 });
+
+export { app, server };
