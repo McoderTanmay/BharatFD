@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { app, server } from '../index.js';  // Import both app and server
+import { app, server } from '../index.js';
 import FAQ from '../models/faqModel.js'; 
 import { redisClient } from '../services/cache.js';
 

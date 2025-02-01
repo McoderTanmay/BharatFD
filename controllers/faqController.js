@@ -43,6 +43,9 @@ const getFaqs = async (req, res) => {
     try {
         const lang = req.query.lang || "en";
         const faqs = await FAQ.find({});
+        if(faqs.length<= 0){
+            return res.json(faqs);
+        }
         const translatedFaqs = faqs.map((faq)=>({
             question: faq.translations[lang]?.question || faq.question,
             answer: faq.translations[lang]?.answer || faq.answer
