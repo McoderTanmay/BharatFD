@@ -9,4 +9,9 @@ redisClient.on("error", (error)=>{
     console.error("Redis error:", error);
 });
 
-module.exports = redisClient;
+(async () => {
+    await redisClient.connect(); // Ensure Redis connects before using it
+    console.log("Connected to Redis");
+})();
+
+export { redisClient };

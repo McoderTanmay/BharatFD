@@ -1,6 +1,7 @@
 import FAQ from "../models/faqModel.js";
-import translate from "@vitalets/google-translate-api";
-
+import {translate} from "@vitalets/google-translate-api";
+import { redisClient } from "../services/cache.js";
+ 
 const createFaq = async (req, res) =>{
     const {question, answer} = req.body;
 
@@ -26,12 +27,34 @@ const createFaq = async (req, res) =>{
             }
         });
         faq.save();
+        //deleting cache after creating faq
+        redisClient.del("faqs:en");
+        redisClient.del("faqs:hi");
+        redisClient.del("faqs:bn");
+
         res.status(201).json({code: 200, status:"Success"});
     } catch (error) {
-        res.status(400).json({status:"Status"});
+        console.log(error);
+        res.status(400).json({status:"falure"});
     }
 }
 
+const getFaqs = async (req, res) => {
+    try {
+        const lang = req.query.lang || "en";
+        const faqs = await FAQ.find({});
+        const translatedFaqs = faqs.map((faq)=>({
+            question: faq.translations[lang]?.question || faq.question,
+            answer: faq.translations[lang]?.answer || faq.answer
+        }));
 
+        await redisClient.setEx(`faqs:`+lang, 3600, JSON.stringify(translatedFaqs));
+        res.json(translatedFaqs);
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).json({error: "error encountered"});
+    }
+}
 
-export { createFaq }
+export { createFaq, getFaqs };

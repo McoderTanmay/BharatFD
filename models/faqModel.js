@@ -1,8 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 
 const faqSchema = new Schema({
-    question:{type: String, require: true},
-    answer:{type: String, require: true},
+    question:{type: String, required: true},
+    answer:{type: String, required: true},
     translations:
     {
         hi:{
