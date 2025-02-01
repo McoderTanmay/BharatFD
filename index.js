@@ -1,9 +1,15 @@
 import express from "express";
+import AdminJS from 'adminjs';
+import AdminJSExpress from '@adminjs/express';
+import * as AdminJSMongoose from '@adminjs/mongoose';
 import cors from"cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
 import FAQROUTER from "./routes/faqRoutes.js";
+
+//database models
+import FAQ from "./models/faqModel.js";
 
 dotenv.config();
 
@@ -26,6 +32,19 @@ const connect = async()=>{
 
 connect();
 
+// AdminJS Configuration
+AdminJS.registerAdapter(AdminJSMongoose);
+const adminJs = new AdminJS({
+    resources: [
+        { resource: FAQ, options: { parent: { name: 'FAQ Management' } }}
+    ],
+    rootPath: '/admin',
+})
+const adminRouter = AdminJSExpress.buildRouter(adminJs);
+app.use(adminJs.options.rootPath, adminRouter);
+
+
 app.listen(3000, ()=>{
     console.log("server is running on http://localhost:3000");
+    console.log(`Admin panel: http://localhost:3000/admin`);
 });
